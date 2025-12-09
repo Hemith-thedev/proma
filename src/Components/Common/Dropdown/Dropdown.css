@@ -1,0 +1,116 @@
+.dropdown {
+    position: relative;
+    width: 100%;
+    min-width: 200px;
+    font-family: var(--font-pro);
+}
+
+.dropdown-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--light-o);
+    font-size: 0.9rem;
+    font-weight: var(--font-weight-medium);
+}
+
+.dropdown-header {
+    padding: 0.8rem 1rem;
+    border-radius: 0.5rem;
+    outline: none;
+    background-color: var(--dark-l);
+    color: var(--light-o);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dropdown-header:hover,
+.dropdown-header:focus,
+.dropdown-header.open {
+    box-shadow: 0 0 0.5rem var(--primary-o-color), inset 0 0 0.5rem var(--primary-o-color);
+}
+
+.dropdown-header.selected {
+    box-shadow: 0 0 0.5rem var(--primary-o-color), inset 0 0 0.5rem var(--primary-o-color);
+}
+
+.dropdown-header.selected span {
+    color: var(--light-l);
+}
+
+.dropdown-header span {
+    color: var(--muted-o);
+}
+
+.dropdown-list {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    width: 100%;
+    border-radius: 0.75rem;
+    padding: 0.2rem;
+    overflow: hidden;
+    z-index: 100;
+    background-color: var(--dropdown-menu-bg);
+    backdrop-filter: blur(30px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+    max-height: 250px;
+    overflow-y: auto;
+    animation: dropdown-slide-in var(--speed-fast) ease-out;
+}
+
+@keyframes dropdown-slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown-item {
+    padding: 0.8rem 1rem;
+    cursor: pointer;
+    color: var(--light-l);
+    transition: background-color var(--speed-fast), color var(--speed-fast);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0.5rem;
+}
+
+.dropdown-item:hover {
+    background-color: var(--primary-shadow-color-hovered);
+}
+
+.dropdown-item.selected {
+    background-color: var(--primary-o-color);
+    color: var(--light-l);
+    box-shadow: 0 0 2rem var(--primary-o-color);
+}
+
+/* Scrollbar styling for the list */
+.dropdown-list::-webkit-scrollbar {
+    width: 14px;
+}
+
+.dropdown-list::-webkit-scrollbar-track {
+    background: var(--dark-l);
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+
+.dropdown-list::-webkit-scrollbar-track-piece {
+    margin: 0;
+}
+
+.dropdown-list::-webkit-scrollbar-thumb {
+    background-color: var(--primary-o-color);
+    border-radius: 1rem;
+    border: 0.2rem solid;
+    border-color: var(--dark-l);
+}
