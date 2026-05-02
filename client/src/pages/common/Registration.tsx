@@ -27,19 +27,105 @@ function RegistrationForm(): JSX.Element {
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setData((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      };
-    });
+    setData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
   };
   const handleChangeGender = (choice: string) => {
     setData((prev) => ({ ...prev, gender: choice }));
-    console.log("Selected: " + choice);
+  };
+  const Validate = (): Object => {
+    const newErrors = {
+      firstName: "",
+      gender: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    };
+    const passwordLength = data.password.length;
+    // showing errors in short and funny ways, because why not? Let's make validation fun!
+    if (!data.firstName.trim()) {
+      newErrors.firstName =
+        "First name is required. We need to know what to call you!";
+    } else if (!/^[A-Za-z]+$/.test(data.firstName.trim())) {
+      newErrors.firstName = "Only letters, please!";
+    }
+    if (!data.gender.trim()) {
+      newErrors.gender =
+        "Gender is required. We need to know how to address you!";
+    }
+    if (!data.email.trim()) {
+      newErrors.email = "Email ID is required.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) {
+      newErrors.email =
+        "That doesn't look like a valid email address. Try again!";
+    }
+    if (!data.password) {
+      newErrors.password =
+        "Password is required. We need to keep your account safe!";
+    } else if (data.password.length < 6) {
+      newErrors.password = `Password is too short. Make it stronger with ${6 - passwordLength < 6 ? `at least ${6 - passwordLength} more character(s)` : `minimum 6 characters`}!`;
+    }
+    if (confirmPassword !== data.password) {
+      newErrors.confirmPassword =
+        "Passwords don't match. Double-check and try again!";
+    } else if (confirmPassword.length < 6) {
+      newErrors.confirmPassword =
+        "Confirm Password is too short. It should match your password!";
+    }
+    return newErrors;
+  };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      console.log("Data: ", data);
+      console.log("Confirm Password: ", confirmPassword);
+      const validationErrors = Validate();
+      if (Object.values(validationErrors).every((err) => err === "")) {
+        const FinalData: { [key: string]: string } = {
+          firstname: data.firstName,
+          lastname: data.lastName,
+          email: data.email,
+          password: data.password,
+          gender: data.gender,
+        };
+        const JSONDATA = JSON.stringify(FinalData);
+        console.log("Final JSON Data to be sent to server: ", JSONDATA);
+        const res = await fetch("http://localhost:5000/api/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSONDATA,
+        });
+        if (res.ok) {
+          setErrors({});
+          setData({
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            gender: "",
+            role: "user",
+            accountStatus: "Pending",
+          });
+          setConfirmPassword("");
+          console.log("Your account has been created successfully!");
+        }
+        if (res.status === 500) {
+          console.error("Server error occurred during registration.");
+        }
+      } else {
+        console.log("Validation failed. Please fix the errors and try again.");
+      }
+    } catch (error) {
+      console.error("An error occurred during creating your account:", error);
+    }
+  };
+  const ErrorMessage = ({ message }: { message: string }) => {
+    return <p className="text-red-500 text-sm mt-1">{message}</p>;
   };
   return (
-    <form className="proma-form">
+    <form className="proma-form" onSubmit={handleSubmit}>
       <div className="proma-input-fields h-fit w-full flex flex-col gap-4 mb-6">
         <div className="proma-horizontal-fields">
           <div className="proma-input-field">
@@ -49,18 +135,19 @@ function RegistrationForm(): JSX.Element {
             </span>
             <input
               type="text"
-              name="firstname"
+              name="firstName"
               className="proma-input"
               placeholder="Andrew"
               value={data.firstName}
               onChange={handleChange}
             />
+            {errors.firstName && <ErrorMessage message={errors.firstName} />}
           </div>
           <div className="proma-input-field">
             <span>Firstname</span>
             <input
               type="text"
-              name="firstname"
+              name="lastName"
               className="proma-input"
               placeholder="Tate"
               value={data.lastName}
@@ -69,12 +156,16 @@ function RegistrationForm(): JSX.Element {
           </div>
         </div>
         <div className="proma-input-field">
-          <span>Gender</span>
+          <span>
+            Gender
+            <UseStar />
+          </span>
           <Dropdown
             options={["", "Male", "Female", "Other"]}
             placeholder="Select Gender"
             onSelect={(choice) => handleChangeGender(choice)}
           />
+          {errors.gender && <ErrorMessage message={errors.gender} />}
         </div>
         <div className="proma-input-field">
           <span>
@@ -89,6 +180,7 @@ function RegistrationForm(): JSX.Element {
             value={data.email}
             onChange={handleChange}
           />
+          {errors.email && <ErrorMessage message={errors.email} />}
         </div>
         <div className="proma-input-field">
           <span>
@@ -103,15 +195,24 @@ function RegistrationForm(): JSX.Element {
             value={data.password}
             onChange={handleChange}
           />
+          {errors.password && <ErrorMessage message={errors.password} />}
         </div>
         <div className="proma-input-field">
-          <span>Cofirm Password</span>
+          <span>
+            Confirm Password
+            <UseStar />
+          </span>
           <input
-            type="confirmPassword"
-            name="password"
+            type="password"
+            name="confirmPassword"
             className="proma-input"
             placeholder="••••••"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
           />
+          {errors.confirmPassword && (
+            <ErrorMessage message={errors.confirmPassword} />
+          )}
         </div>
         {/* <div className="proma-input-field">
           <span>Role</span>
