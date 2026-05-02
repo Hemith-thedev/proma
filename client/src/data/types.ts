@@ -1,28 +1,45 @@
-export interface Team {
-  id?: number;
-  name: string;
-  batch_no: string;
-  created_at?: string;
-  updated_at?: string; 
+export type UserRole = "admin" | "teammate" | "user";
+export type AccountStatus = "Pending" | "Approved" | "Rejected";
+export type ProjectStatus = "Planning" | "In Progress" | "On Hold" | "Completed";
+export type Gender = "" | "Male" | "Female" | "Other";
+
+export interface User {
+  id?: Number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  gender: 'Male' | 'Female' | 'Other' | string;
+  role: "admin" | "teammate" | "user";
+  accountStatus: 'Pending' | 'Approved' | 'Rejected';
+  createdAt?: Date;
 }
 
-export interface Teammate {
-  id?: number;
+export interface Team {
+  readonly id: number;
   name: string;
-  register_no: string;
-  email: string;
-  phone: string;
-  gender: "Male" | "Female" | "Others";
-  assigned_works: string[];
-  created_at?: string;
-  updated_at?: string;
+  teamLeader: User | number; // Sir or Senior
+  teammateIds: number[];
+  projectIds?: number[];
+  readonly createdAt: Date;
+}
+
+export interface Project {
+  readonly id: number;
+  name: string;
+  description: string;
+  status: ProjectStatus;
+  teamId: number;
+  ownerId: number; // Sir/Admin ID
+  deadline?: Date;
+  readonly createdAt: Date;
 }
 
 export interface Log {
-  id?: number;
-  label: string;
-  status: 'Pending' | 'Ongoing' | 'Completed';
-  assigner: string;
-  created_at?: string;
-  updated_at?: string;
+  readonly id: number;
+  name: string;
+  doneBy: User | number;
+  teamId: number;
+  description: string | string[];
+  readonly createdAt: Date;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
@@ -7,16 +7,31 @@ import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/common/Home";
 import AboutPage from "./pages/common/About";
 import ContactPage from "./pages/common/Contact";
+import LoginPage from "./pages/common/Login";
+import RegistrationPage from "./pages/common/Registration";
 
 function App() {
   const role = localStorage.getItem("proma-user-role");
+  useEffect(() => {
+    const document = Document as any;
+    if (document.startViewTransition) {
+      document.startViewTransition(() => {
+        // This callback runs during the view transition.
+        // You can perform any DOM updates here, and they will be smoothly transitioned.
+      });
+    }
+  }, [window.location.pathname]);
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/contact" element={<ContactPage />} />
-      {role === "user" && <></>}
-    </Routes>
+    <div className="app relative flex flex-col justify-start items-center min-h-screen min-w-full bg-black text-white">
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegistrationPage />} />
+        {role === "user" && <></>}
+      </Routes>
+    </div>
   );
 }
 

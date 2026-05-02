@@ -1,8 +1,9 @@
 {
-  "name": "teams-logs",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
@@ -47,7 +48,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.5.0",
-    "postcss": "^8.5.9",
+    "postcss": "^8.5.10",
     "tailwindcss": "^3.4.19"
   }
 }

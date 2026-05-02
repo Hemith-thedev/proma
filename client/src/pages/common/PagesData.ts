@@ -1,28 +1,32 @@
 export const HomePageData = {
   hero: {
     heading: "Proma",
-    caption:
-      "The pulse of your project. Manage your daily logs with surgical precision.",
+    captions: ["Pulse of your project", "Daily logs", "surgical precision."],
   },
   about: {
     heading: "What is Proma?",
     descriptions: [
-      "Proma is a high-performance logging system designed to track team productivity in real-time.",
-      "From assigning complex tasks to monitoring daily progress, we provide the skeletal structure your project needs to grow.",
+      "Proma is a high-performance logging ecosystem engineered to monitor and optimize team productivity in real-time.",
+      "From delegating complex architectural tasks to tracking daily milestones, we provide the robust infrastructure necessary for scalable project growth.",
+      "Consider us the central nervous system of your operations—ensuring every pulse of productivity is documented and every strategic goal remains attainable.",
+      "We simplify the complexities of resource management into a streamlined experience, empowering your team to focus on innovation while we automate the tracking.",
+      "Serving as a high-fidelity integration for your workflow, Proma synchronizes team activities in real-time to eliminate operational friction and data silos.",
+      "We bridge the gap between initial effort and final achievement, ensuring a consistent trajectory of growth through data-driven performance insights.",
+      "Experience a new standard of organizational coordination where enterprise-grade tracking meets intuitive, frictionless team collaboration.",
     ],
     cta: {
       label: "Explore Our Mission",
       path: "/about",
     },
-    image: {
-      src: "/images/home-about.png",
-      alt: "Data visualization and team collaboration",
-    },
   },
   why: {
     heading: "Why Choose Proma?",
     descriptions: [
-      "Traditional logging is slow and messy. Proma is built on a lean-data architecture that ensures your records are always accurate, timestamped, and secure.",
+      "Traditional logging is inefficient and fragmented. Proma is built on a high-performance, lean-data architecture ensuring that your records are consistently accurate, timestamped, and secure.",
+      "Experience seamless real-time synchronization. Every entry is processed instantly with zero latency, providing a reliable and robust data pipeline for your operations.",
+      "A sophisticated, minimalist UI designed for deep focus. Our aesthetic combines glassmorphism-inspired transparency with functional clarity to maximize professional productivity.",
+      "Enterprise-grade security for your critical data. With advanced encryption protocols and a privacy-first approach, we ensure your most sensitive records remain protected at all times.",
+      "Scalability engineered for growth. Whether you are an independent developer or managing a large-scale enterprise team, Proma evolves with your requirements without any performance overhead.",
     ],
   },
   features: {
@@ -35,11 +39,11 @@ export const HomePageData = {
     ],
   },
   contact: {
-    heading: "Ready to Start?",
-    caption: "Connect with the architects of this system today.",
+    heading: "Ready to Get Started?",
+    caption: "Connect with us today.",
     cta: {
-      label: "Get in Touch",
-      path: "/contact",
+      label: "Create Account",
+      path: "/register",
     },
   },
 };
@@ -54,10 +58,48 @@ export const AboutPageData = {
     },
   },
   main: {
-    heading: "The Techbox Philosophy",
+    heading: "The Philosophy",
     descriptions: [
-      "We believe that data should be a living organism. It shouldn't just sit in a database; it should tell a story about who did what, and when.",
-      "Proma was born from the need to eliminate redundancy and provide a clean, automated environment for teams to thrive.",
+      {
+        highlight: "Dynamic Ecosystem",
+        label:
+          "Data isn't static; it's a living narrative of accountability and temporal precision.",
+      },
+      {
+        highlight: "Systemic Efficiency",
+        label:
+          "Engineered to eliminate redundancy and empower high-performance teams to thrive.",
+      },
+      {
+        highlight: "Unified Truth",
+        label:
+          "A synchronized data stream ensuring a single, reliable source for strategic decisions.",
+      },
+      {
+        highlight: "Temporal Integrity",
+        label:
+          "Capturing every interaction with millisecond accuracy for deep-dive performance forensics.",
+      },
+      {
+        highlight: "Cognitive Focus",
+        label:
+          "Automating tracking layers to eliminate mental load and maximize creative innovation.",
+      },
+      {
+        highlight: "Operational Fluidity",
+        label:
+          "Synchronizing team heartbeats in real-time to eliminate friction and ensure seamless workflow delivery.",
+      },
+      {
+        highlight: "Structural Integrity",
+        label:
+          "Providing the robust skeletal framework necessary for your project to scale from concept to completion.",
+      },
+      {
+        highlight: "Architectural Clarity",
+        label:
+          "Transforming complex team management into an intuitive experience with high-performance tracking.",
+      },
     ],
     image: {
       src: "/images/philosophy.png",
@@ -105,7 +147,7 @@ export const ContactPageData = {
         {
           label: "Phone",
           value: "+1 (555) PROMA-LOG",
-          action: "tel:+15557766256",
+          action: "tel:+917483353487",
           icon: "📞",
         },
         {
@@ -133,6 +175,6 @@ export const LoginPageData = {
 export const RegistrationPageData = {
   hero: {
     heading: "Join Proma",
-    caption: "Initialize your profile and claim your spot in the team.",
+    caption: "Initialize your badge and claim your spot in the team.",
   },
 };

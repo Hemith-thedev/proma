@@ -1,5 +1,8 @@
-import { JSX } from "react";
+import { JSX, useEffect, useState, useRef } from "react";
 import { NavLink } from "react-router-dom";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
 import { ContactPageData } from "./PagesData";
 import CommonPageLayout from "../../components/layouts/CommonPageLayout";
@@ -7,68 +10,107 @@ import CommonPageLayout from "../../components/layouts/CommonPageLayout";
 function ContactForm(): JSX.Element {
   return (
     <form className="proma-form">
-      <div className="input-fields">
+      <div className="">
+        <h4 className="mb-0">{ContactPageData.main.form.heading}</h4>
+        <p className="mb-2 text-gray-400">
+          {ContactPageData.main.form.caption}
+        </p>
+      </div>
+      <div className="proma-input-fields h-fit w-full flex flex-col gap-4 mb-6">
         {/* <div className="input-rows"></div> */}
-        <div className="input-field">
+        <div className="proma-input-field">
           <span>Username</span>
           <input type="text" name="username" className="proma-input" />
         </div>
-        <div className="input-field">
+        <div className="proma-input-field">
           <span>Email ID</span>
           <input type="email" name="email" className="proma-input" />
         </div>
-        <div className="input-filed">
+        <div className="proma-input-field">
           <span>Contact.no</span>
           <input type="number" name="phone" className="proma-input" />
         </div>
-        <div className="input-field">
+        <div className="proma-input-field">
           <span>Message</span>
           <textarea name="username" className="proma-textarea" />
         </div>
       </div>
-      <button type="submit" className="proma-submit-button">Send Message</button>
+      <button type="submit" className="proma-submit-button min-w-full">
+        Send Message_
+      </button>
     </form>
   );
 }
 
 export default function ContactPage(): JSX.Element {
+  const container = useRef<HTMLDivElement>(null);
+  useGSAP(() => {
+    const contactDetails = gsap.utils.toArray(".contact-detail");
+    gsap.fromTo(
+        contactDetails,
+        { opacity: 0, x: -100, filter: "blur(20px)" },
+        {
+          opacity: 1,
+          x: 0,
+          filter: "blur(0px)",
+        },
+      );
+  }, { scope: container });
   return (
     <CommonPageLayout
       page={
-        <main className="contact-page">
-          <section className="hero-section">
-            <div className="image">
-              <img
-                src={ContactPageData.hero.image.src}
-                alt={ContactPageData.hero.image.alt}
-              />
-            </div>
-            <div className="wrapper">
-              <p>{ContactPageData.hero.heading}</p>
-              <p>{ContactPageData.hero.caption}</p>
-            </div>
-          </section>
-          <section className="main-section">
-            <div className="wrapper">
-              <div className="info">
-                <p>{ContactPageData.main.info.heading}</p>
-                <div className="infos">
-                  {ContactPageData.main.info.array.map((info, i) => (
-                    <NavLink to={info.action} key={i} className="contact-card">
-                      <span className="icon">{info.icon}</span>
-                      <div className="details">
-                        <p className="label">{info.label}</p>
-                        <p className="value">{info.value}</p>
-                      </div>
-                    </NavLink>
-                  ))}
+        <main
+        className="proma-page min-w-full light no-scrollbar transition-all"
+        ref={container}
+        >
+          <div></div>
+          <div></div>
+          <div></div>
+          <section className="proma-section contact-section">
+            <div className="proma-section-wrapper relative gradient-bg p-6 rounded-3xl">
+              <div className="flex flex-col justify-between align-center h-fit w-full">
+                <div className="flex flex-col">
+                  <h3 className="mb-0">{ContactPageData.hero.heading}</h3>
+                  <p className="text-4xl text-gray-400">
+                    {ContactPageData.hero.caption}
+                  </p>
                 </div>
               </div>
-              <div className="form">
-                <ContactForm />
+              <div className="absolute top-0 left-0 z-10 h-full w-full tranform gradient-bg filter blur-[200px] mix-blend-plus-lighter pointer-events-none"></div>
+              <div className="absolute top-0 left-0 z-10 h-full w-full tranform gradient-bg filter blur-[200px] mix-blend-plus-lighter pointer-events-none"></div>
+            </div>
+          </section>
+          <section className="main-section proma-section">
+            <div className="proma-section-wrapper">
+              <div className="flex flex-col justify-between items-start gap-10 h-fit w-full lg:flex-row">
+                <div className="info w-full lg:w-1/2 px-6 rounded-3xl">
+                  <h3 className="gradient-text">
+                    {ContactPageData.main.info.heading}
+                  </h3>
+                  <div className="infos">
+                    {ContactPageData.main.info.array.map((info, i) => (
+                      <NavLink
+                        to={info.action}
+                        key={i}
+                        className="contact-detail flex flex-col p-4 bg-gray-900 rounded-xl mb-6"
+                      >
+                        <h5>
+                          {info.icon} {info.label}
+                        </h5>
+                        <p className="value">{info.value}</p>
+                      </NavLink>
+                    ))}
+                  </div>
+                </div>
+                <div className="form w-full lg:w-1/2 px-6 rounded-3xl">
+                  <ContactForm />
+                </div>
               </div>
             </div>
           </section>
+          <div></div>
+          <div></div>
+          <div></div>
         </main>
       }
     />
