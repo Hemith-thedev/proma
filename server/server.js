@@ -42,7 +42,7 @@ app.post("/api/register", (req, res) => {
   if (!firstname || !email || !password) {
     return res
       .status(400)
-      .json({ message: "Hey buddy, fill the details first!" });
+      .json({ message: "NODETAILS" });
   }
   const QUERY = "SELECT * FROM users where email = ?";
   database.query(QUERY, [email], async (err, result) => {
@@ -53,7 +53,7 @@ app.post("/api/register", (req, res) => {
     if (result.length > 0) {
       return res
         .status(400)
-        .json({ message: "This account already registered, try logging in!" });
+        .json({ message: "EXISTS" });
     }
     try {
       const salt = await bcryptjs.genSalt(10);
@@ -72,7 +72,7 @@ app.post("/api/register", (req, res) => {
           }
           return res.status(201).json({
             message:
-              "Registration successful! Your account is pending approval.",
+              "SUCCESS",
             userid: result.insertId,
           });
         },
@@ -85,6 +85,48 @@ app.post("/api/register", (req, res) => {
       return res
         .status(500)
         .json({ error: "An unexpected error occurred during registration." });
+    }
+  });
+});
+
+app.post("/api/login", async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ message: "NODETAILS" });
+  }
+  database.query("SELECT * FROM users WHERE email = ?", [email], async (err, result) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (result.length === 0) {
+      return res.status(400).json({ message: "ACCOUNTNOTFOUND" });
+    }
+    try {
+      const user = result[0];
+      const isPasswordValid = await bcryptjs.compare(password, user.password);
+      if (!isPasswordValid) return res.status(400).json({ message: "INCORRECTPASSWORD" });
+      if (user.account_status !== "Approved") return res.status(403).json({ message: "WAIT" });
+      const safeUser = { ...user, password: undefined }
+      return res.status(200).json({ message: "SUCCESS", user: safeUser });
+    } catch (error) {
+      console.error("❌ An unexpected error occurred during login:", error);
+      return res
+        .status(500)
+        .json({ error: "An unexpected error occurred during login." });
+    }
+  })
+});
+
+app.put("/api/update-status/:id", async (req, res) => {
+  const userid = req.params.id;
+  const { status } = req.body;
+  database.query("UPDATE users SET account_status = 'Approved' where id = ?", [userid], async (err, result) => {
+    if (err) return res.status(500).json({ error: err.message });
+    try {
+      return res.status(200).json({ message: "SUCCESS" });
+    } catch (error) {
+      console.error("❌ An unexpected error occurred while approving the user:", error);
+      return res
+        .status(500)
+        .json({ error: "An unexpected error occurred while approving the user." });
     }
   });
 });

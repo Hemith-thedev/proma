@@ -1,20 +1,25 @@
+import { JSX } from "react";
+
+// Type definitions for the project
 export type UserRole = "admin" | "teammate" | "user";
 export type AccountStatus = "Pending" | "Approved" | "Rejected";
 export type ProjectStatus = "Planning" | "In Progress" | "On Hold" | "Completed";
 export type Gender = "" | "Male" | "Female" | "Other";
 
+// User interface representing a user in the system
 export interface User {
   id?: Number;
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   password: string;
-  gender: 'Male' | 'Female' | 'Other' | string;
-  role: "admin" | "teammate" | "user";
-  accountStatus: 'Pending' | 'Approved' | 'Rejected';
+  gender?: 'Male' | 'Female' | 'Other' | string;
+  role?: "admin" | "teammate" | "user";
+  accountStatus?: 'Pending' | 'Approved' | 'Rejected';
   createdAt?: Date;
 }
 
+// Team interface representing a team in the system
 export interface Team {
   readonly id: number;
   name: string;
@@ -24,6 +29,7 @@ export interface Team {
   readonly createdAt: Date;
 }
 
+// Project interface representing a project in the system
 export interface Project {
   readonly id: number;
   name: string;
@@ -35,6 +41,7 @@ export interface Project {
   readonly createdAt: Date;
 }
 
+// Log interface representing a log entry in the system1
 export interface Log {
   readonly id: number;
   name: string;

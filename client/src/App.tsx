@@ -4,14 +4,18 @@ import "./App.css";
 
 import { Routes, Route } from "react-router-dom";
 
+// common pages
 import HomePage from "./pages/common/Home";
 import AboutPage from "./pages/common/About";
 import ContactPage from "./pages/common/Contact";
 import LoginPage from "./pages/common/Login";
 import RegistrationPage from "./pages/common/Registration";
 
+// admin pages
+import AdminDashboard from "./pages/admin/Dashboard";
+
 function App() {
-  const role = localStorage.getItem("proma-user-role");
+  const role = localStorage.getItem("proma-role");
   useEffect(() => {
     const document = Document as any;
     if (document.startViewTransition) {
@@ -29,7 +33,9 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationPage />} />
-        {role === "user" && <></>}
+        {role === "admin" && (
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+        )}
       </Routes>
     </div>
   );

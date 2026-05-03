@@ -43,13 +43,13 @@ function RegistrationForm(): JSX.Element {
     };
     const passwordLength = data.password.length;
     // showing errors in short and funny ways, because why not? Let's make validation fun!
-    if (!data.firstName.trim()) {
+    if (!data.firstName?.trim()) {
       newErrors.firstName =
         "First name is required. We need to know what to call you!";
-    } else if (!/^[A-Za-z]+$/.test(data.firstName.trim())) {
+    } else if (!/^[A-Za-z]+$/.test(data.firstName?.trim())) {
       newErrors.firstName = "Only letters, please!";
     }
-    if (!data.gender.trim()) {
+    if (!data.gender?.trim()) {
       newErrors.gender =
         "Gender is required. We need to know how to address you!";
     }
@@ -82,11 +82,11 @@ function RegistrationForm(): JSX.Element {
       const validationErrors = Validate();
       if (Object.values(validationErrors).every((err) => err === "")) {
         const FinalData: { [key: string]: string } = {
-          firstname: data.firstName,
-          lastname: data.lastName,
+          firstname: data.firstName || "",
+          lastname: data.lastName || "",
           email: data.email,
           password: data.password,
-          gender: data.gender,
+          gender: data.gender || "",
         };
         const JSONDATA = JSON.stringify(FinalData);
         console.log("Final JSON Data to be sent to server: ", JSONDATA);
