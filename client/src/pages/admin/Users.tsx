@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AdminPageLayout from "../../components/layouts/AdminPageLayout";
 
-export default function AdminDashboard() {
+export default function AdminUsers() {
   const [role, setRole] = useState(() => {
     const stored = localStorage.getItem("proma-role");
     return stored ? stored : "";
@@ -15,6 +15,7 @@ export default function AdminDashboard() {
       <div></div>
       <div></div>
       {role}
+      Users
       {localStorage.getItem("proma-firstName")}
       <div></div>
       <div></div>

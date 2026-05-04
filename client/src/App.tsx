@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { JSX, useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 // common pages
 import HomePage from "./pages/common/Home";
@@ -12,9 +12,17 @@ import LoginPage from "./pages/common/Login";
 import RegistrationPage from "./pages/common/Registration";
 
 // admin pages
-import AdminDashboard from "./pages/admin/Dashboard";
+import AdminPageLayout from "./components/layouts/AdminPageLayout";
+import AdminUsers from "./pages/admin/Users";
 
 function App() {
+  const location = useLocation();
+  const [page, setPage] = useState<React.ReactNode>(<></>);
+  useEffect(() => {
+    if (location.pathname === "/admin/users") {
+      setPage(<AdminUsers />);
+    }
+  }, [location.pathname]);
   const role = localStorage.getItem("proma-role");
   useEffect(() => {
     const document = Document as any;
@@ -26,7 +34,7 @@ function App() {
     }
   }, [window.location.pathname]);
   return (
-    <div className="app relative flex flex-col justify-start items-center min-h-screen min-w-full bg-black text-white">
+    <div className="app relative flex justify-start items-center min-h-screen min-w-full bg-black text-white">
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
@@ -34,7 +42,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationPage />} />
         {role === "admin" && (
-          <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/dashboard" element={<AdminPageLayout page={page} />} />
         )}
       </Routes>
     </div>

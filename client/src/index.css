@@ -158,6 +158,12 @@
   }
 }
 
+.no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 html,
 body {
   &::-webkit-scrollbar {
