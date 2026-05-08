@@ -1,24 +1,35 @@
-import React from "react";
+import React, { JSX, useEffect, useState } from "react";
 import Header from "../admin/Header";
-import AdminDashboard from "../../pages/admin/Dashboard";
 import { useLocation } from "react-router-dom"; // Hook import cheyi
 
-export default function AdminPageLayout({ page }: { page?: React.ReactNode }) {
-  const location = useLocation();
+import AdminDashboard from "../../pages/admin/Dashboard";
+import AdminUsers from "../../pages/admin/pages/Users";
 
+export default function AdminPageLayout() {
+  const [page, setPage] = useState<JSX.Element>(<AdminDashboard />);
+  const location = useLocation();
+  const updatePage = async () => {
+    const storedRoute = localStorage.getItem("proma-admin-last-active-page");
+    if (storedRoute === "dashboard") {
+      setPage(<AdminDashboard />);
+    }
+    else if (storedRoute === "users") {
+      setPage(<AdminUsers />);
+    }
+  };
+  useEffect(() => {
+    updatePage();
+    window.addEventListener("storage", updatePage);
+    return () => window.removeEventListener("storage", updatePage);
+  }, []);
   return (
-    <div className="flex bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 min-h-screen w-full">
+    <div className="flex bg-gradient-to-br min-h-screen w-full">
       {/* Mana Glassmorphism Header (Sidebar) */}
-      <Header />
+      <Header onclick={() => updatePage()} />
 
       {/* Main Content Area */}
-      <main className="flex-1 p-8 ml-0 md:ml-64 transition-all duration-300">
-        {/* Conditional Rendering Logic */}
-        {location.pathname === "/admin/dashboard" ? (
-          <AdminDashboard />
-        ) : (
-          page // Dashboard kakapothe nuvvu pampina 'page' prop render avtundi
-        )}
+      <main className="flex flex-col justify-start items-center h-screen w-full p-20">
+        {page}
       </main>
     </div>
   );

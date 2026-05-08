@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { LoginPageData } from "./PagesData";
 import CommonPageLayout from "../../components/layouts/CommonPageLayout";
 import { User } from "../../data/types";
+import axios from "axios";
 
 function LoginForm(): JSX.Element {
   const [data, setData] = useState<User>({
@@ -39,34 +40,18 @@ function LoginForm(): JSX.Element {
     }
     return newErrors;
   };
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       console.log("Data: ", data);
       console.log("Confirm Password: ", confirmPassword);
       const validationErrors = Validate();
       if (Object.values(validationErrors).every((err) => err === "")) {
-        const FinalData: { [key: string]: string } = {
+        const res = await axios.post("http://localhost:5000/api/login", {
           email: data.email,
-          password: data.password,
-        };
-        const JSONDATA = JSON.stringify(FinalData);
-        console.log("Final JSON Data to be sent to server: ", JSONDATA);
-        const res = await fetch("http://localhost:5000/api/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSONDATA,
+          password: data.password
         });
-        if (res.ok) {
-          setErrors({});
-          setData({
-            email: "",
-            password: "",
-          });
-        }
-        const responseData = await res.json();
+        const responseData = await res.data;
         if (responseData.message === "NODETAILS") {
           setErrors({
             email: "Please enter your email to access your account.",
@@ -89,8 +74,26 @@ function LoginForm(): JSX.Element {
         } else if (responseData.message === "SUCCESS") {
           console.log("Login successful! Response from server:", responseData);
           if (responseData.user) {
-            const { account_status, created_at, email, first_name, gender, id, last_name, role } = responseData.user;
-            localStorage.setItem("proma-fullname", `${first_name} ${last_name}`);
+            console.log(responseData.user);
+            setData({
+              email: "",
+              password: "",
+            });
+            setErrors({});
+            const {
+              account_status,
+              created_at,
+              email,
+              first_name,
+              gender,
+              id,
+              last_name,
+              role,
+            } = responseData.user;
+            localStorage.setItem(
+              "proma-fullname",
+              `${first_name} ${last_name}`,
+            );
             localStorage.setItem("proma-firstName", first_name);
             localStorage.setItem("proma-lastName", last_name);
             localStorage.setItem("proma-email", email);
@@ -99,11 +102,11 @@ function LoginForm(): JSX.Element {
             localStorage.setItem("proma-createdAt", created_at);
             localStorage.setItem("proma-gender", gender);
             localStorage.setItem("proma-id", id);
-            window.location.pathname = "/admin/dashboard"
+            window.location.pathname = "/admin/dashboard";
           }
         }
         if (res.status === 500) {
-          console.error("Server error occurred during registration.");
+          console.error("Server error occurred during login.");
         }
       } else {
         console.log("Validation failed. Please fix the errors and try again.");

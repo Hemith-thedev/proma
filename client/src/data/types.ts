@@ -10,13 +10,17 @@ export type Gender = "" | "Male" | "Female" | "Other";
 export interface User {
   id?: Number;
   firstName?: string;
+  first_name?: string;
   lastName?: string;
+  last_name?: string;
   email: string;
   password: string;
   gender?: 'Male' | 'Female' | 'Other' | string;
   role?: "admin" | "teammate" | "user";
   accountStatus?: 'Pending' | 'Approved' | 'Rejected';
+  account_status?: 'Pending' | 'Approved' | 'Rejected';
   createdAt?: Date;
+  created_at?: Date;
 }
 
 // Team interface representing a team in the system

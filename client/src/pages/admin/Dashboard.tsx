@@ -7,19 +7,9 @@ export default function AdminDashboard() {
     return stored ? stored : "";
   });
   return (
-    <main
-      className="proma-page min-w-full light no-scrollbar transition-all"
-      // ref={container}
-    >
-      <div></div>
-      <div></div>
-      <div></div>
+    <>
       {role}
       {localStorage.getItem("proma-firstName")}
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </main>
+    </>
   );
 }

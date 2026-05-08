@@ -2,7 +2,7 @@ import React, { JSX, useEffect, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 // common pages
 import HomePage from "./pages/common/Home";
@@ -13,17 +13,38 @@ import RegistrationPage from "./pages/common/Registration";
 
 // admin pages
 import AdminPageLayout from "./components/layouts/AdminPageLayout";
-import AdminUsers from "./pages/admin/Users";
 
 function App() {
   const location = useLocation();
-  const [page, setPage] = useState<React.ReactNode>(<></>);
-  useEffect(() => {
-    if (location.pathname === "/admin/users") {
-      setPage(<AdminUsers />);
+  const navigate = useNavigate();
+  const [role, setRole] = useState<string | null>(
+    localStorage.getItem("proma-role"),
+  );
+  const setActiveRole = () => {
+    const storedRole = localStorage.getItem("proma-role");
+    setRole(storedRole || "");
+    if (storedRole === "admin") {
+      navigate("/admin");
     }
-  }, [location.pathname]);
-  const role = localStorage.getItem("proma-role");
+  };
+  useEffect(() => {
+    const storedRole = localStorage.getItem("proma-role");
+    if (storedRole === "admin") {
+      if (!location.pathname.startsWith("/admin")) {
+        navigate("/admin");
+      } else {
+        // if (location.pathname.startsWith("/admin")) {
+        //   navigate("/login");
+        // }
+      }
+    }
+    const handleStorageChange = () => {
+      setRole(storedRole || "");
+    };
+    window.addEventListener("storage", handleStorageChange);
+    setActiveRole();
+    return () => window.removeEventListener("storage", handleStorageChange);
+  });
   useEffect(() => {
     const document = Document as any;
     if (document.startViewTransition) {
@@ -33,8 +54,21 @@ function App() {
       });
     }
   }, [window.location.pathname]);
+  useEffect(() => {
+    const changeRoute = () => {
+      if (role === "admin" && !location.pathname.startsWith("/admin")) {
+        navigate("/admin");
+      }
+      // if (role !== "admin" && location.pathname.startsWith("/admin")) {
+      //   navigate("/login");
+      // }
+    };
+    window.addEventListener("storage", changeRoute);
+    return () => window.removeEventListener("storage", changeRoute);
+  }, []);
   return (
-    <div className="app relative flex justify-start items-center min-h-screen min-w-full bg-black text-white">
+    <div className={`app relative flex justify-start items-center min-h-screen min-w-full bg-black text-white
+    ${location.pathname.startsWith("/admin") ? "overflow-hidden" : ""}`}>
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutPage />} />
@@ -42,7 +76,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegistrationPage />} />
         {role === "admin" && (
-          <Route path="/admin/dashboard" element={<AdminPageLayout page={page} />} />
+          <Route path="/admin" element={<AdminPageLayout />} />
         )}
       </Routes>
     </div>

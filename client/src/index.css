@@ -70,6 +70,9 @@
   .gradient-bg {
     @apply bg-gradient-to-r from-primary-500 to-secondary-500;
   }
+  .gradient-bg-top-bottom {
+    @apply bg-gradient-to-b from-primary-500 to-secondary-500;
+  }
 
   /* Typography */
 
@@ -141,7 +144,8 @@
       input,
       textarea {
         @apply w-full px-3 py-2 rounded-lg bg-transparent text-white tracking-widest outline-none ring-2 ring-gray-800 transition duration-200;
-        &:hover, &:focus {
+        &:hover,
+        &:focus {
           box-shadow: 0 0 10px hsla(330, 100%, 50%);
         }
       }
@@ -150,9 +154,83 @@
       }
     }
     .proma-submit-button {
-      @apply gradient-bg text-white font-semibold py-2 px-6 rounded-lg transition duration-300 ;
+      @apply gradient-bg text-white font-semibold py-2 px-6 rounded-lg transition duration-300;
       &:hover {
         box-shadow: 0 0 75px hsla(270, 100%, 30%);
+      }
+    }
+  }
+
+  /* Table */
+  .proma-table {
+    @apply relative flex flex-col justify-start items-center h-fit w-full overflow-x-auto overflow-y-hidden p-1 gradient-bg-top-bottom rounded-2xl;
+
+    & table {
+      /* Border-spacing ni 0 chesesam, rows madhya gap undadu */
+      border-collapse: separate;
+      border-spacing: 0;
+
+      @apply table h-full w-fit p-0;
+
+      & thead {
+        position: sticky;
+        top: 0;
+        & tr {
+          & th {
+            @apply relative p-3 text-nowrap;
+            z-index: 10;
+            /* thead ki tbody ki madhya gap la kanipinchadaniki bottom margin/padding mimic chestunnam */
+            border-bottom: 4px solid transparent;
+
+            &::before {
+              content: "";
+              z-index: -1;
+              @apply absolute inset-0 bg-black;
+            }
+
+            &:nth-child(1) {
+              &::before {
+                @apply rounded-l-xl;
+              }
+            }
+
+            &:last-child {
+              &::before {
+                @apply rounded-r-xl;
+              }
+            }
+          }
+        }
+      }
+
+      & tbody {
+        @apply bg-black rounded-xl max-h-10 w-fit;
+
+        & tr {
+          @apply hover:bg-gray-900;
+          & td {
+            @apply p-3 text-nowrap;
+          }
+
+          /* Tbody lo rows anni kalise untayi, no gap */
+          &:nth-child(1) {
+            & td:nth-child(1) {
+              @apply rounded-tl-xl;
+            }
+            & td:last-child {
+              @apply rounded-tr-xl;
+            }
+          }
+
+          &:last-child {
+            & td:nth-child(1) {
+              @apply rounded-bl-xl;
+            }
+            & td:last-child {
+              @apply rounded-br-xl;
+            }
+          }
+        }
       }
     }
   }

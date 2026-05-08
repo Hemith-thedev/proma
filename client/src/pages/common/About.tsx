@@ -25,7 +25,7 @@ export default function AboutPage(): JSX.Element {
                 <div className="absolute size-full bg-secondary-500 mix-blend-plus-lighter filter blur-[200px]"></div>
                 <div className="absolute size-full bg-secondary-500 mix-blend-plus-lighter filter blur-[200px]"></div>
               </div>
-              <h1 className="gradient-text progressive-blur-t-b text-[5rem]">
+              <h1 className="gradient-text text-[5rem] lg:text-[10rem] opacity-50">
                 {AboutPageData.hero.heading}
               </h1>
               <p className="">{AboutPageData.hero.caption}</p>
