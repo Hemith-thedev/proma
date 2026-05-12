@@ -27,7 +27,6 @@ export default function AdminUsers() {
           <div className="flex flex-col justify-between align-center h-fit w-full">
             <div className="flex flex-col">
               <h3 className="mb-0">Users</h3>
-              <p className="text-4xl text-gray-400">Users</p>
             </div>
           </div>
           <div className="absolute top-0 left-0 z-10 h-full w-full tranform gradient-bg filter blur-[200px] mix-blend-plus-lighter pointer-events-none"></div>
@@ -46,8 +45,6 @@ export default function AdminUsers() {
               <th>Gender</th>
               <th>Account Status</th>
               <th>Registration Date-time</th>
-              <th>Registration Date-time</th>
-              <th>Registration Date-time</th>
             </tr>
           </thead>
           <tbody>
@@ -60,64 +57,6 @@ export default function AdminUsers() {
                 <td>{user.email}</td>
                 <td>{user.gender}</td>
                 <td>{user.account_status}</td>
-                <td>{String(user.created_at)}</td>
-                <td>{String(user.created_at)}</td>
-                <td>{String(user.created_at)}</td>
-              </tr>
-            ))}
-            {users.map((user) => (
-              <tr key={Number(user.id)}>
-                <td>{Number(user.id)}</td>
-                <td>{user.first_name}</td>
-                <td>{user.last_name}</td>
-                <td>{`${user.first_name} ${user.last_name}`}</td>
-                <td>{user.email}</td>
-                <td>{user.gender}</td>
-                <td>{user.account_status}</td>
-                <td>{String(user.created_at)}</td>
-                <td>{String(user.created_at)}</td>
-                <td>{String(user.created_at)}</td>
-              </tr>
-            ))}
-            {users.map((user) => (
-              <tr key={Number(user.id)}>
-                <td>{Number(user.id)}</td>
-                <td>{user.first_name}</td>
-                <td>{user.last_name}</td>
-                <td>{`${user.first_name} ${user.last_name}`}</td>
-                <td>{user.email}</td>
-                <td>{user.gender}</td>
-                <td>{user.account_status}</td>
-                <td>{String(user.created_at)}</td>
-                <td>{String(user.created_at)}</td>
-                <td>{String(user.created_at)}</td>
-              </tr>
-            ))}
-            {users.map((user) => (
-              <tr key={Number(user.id)}>
-                <td>{Number(user.id)}</td>
-                <td>{user.first_name}</td>
-                <td>{user.last_name}</td>
-                <td>{`${user.first_name} ${user.last_name}`}</td>
-                <td>{user.email}</td>
-                <td>{user.gender}</td>
-                <td>{user.account_status}</td>
-                <td>{String(user.created_at)}</td>
-                <td>{String(user.created_at)}</td>
-                <td>{String(user.created_at)}</td>
-              </tr>
-            ))}
-            {users.map((user) => (
-              <tr key={Number(user.id)}>
-                <td>{Number(user.id)}</td>
-                <td>{user.first_name}</td>
-                <td>{user.last_name}</td>
-                <td>{`${user.first_name} ${user.last_name}`}</td>
-                <td>{user.email}</td>
-                <td>{user.gender}</td>
-                <td>{user.account_status}</td>
-                <td>{String(user.created_at)}</td>
-                <td>{String(user.created_at)}</td>
                 <td>{String(user.created_at)}</td>
               </tr>
             ))}

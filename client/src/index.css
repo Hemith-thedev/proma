@@ -163,7 +163,7 @@
 
   /* Table */
   .proma-table {
-    @apply relative flex flex-col justify-start items-start h-fit w-full overflow-x-auto p-1 gradient-bg-top-bottom rounded-2xl;
+    @apply relative flex flex-col justify-start items-start h-fit max-h-[100%] w-fit max-w-[100%] overflow-x-auto p-1 gradient-bg-top-bottom rounded-2xl;
 
     & table {
       /* Border-spacing ni 0 chesesam, rows madhya gap undadu */
