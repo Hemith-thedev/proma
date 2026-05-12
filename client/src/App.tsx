@@ -67,7 +67,7 @@ function App() {
     return () => window.removeEventListener("storage", changeRoute);
   }, []);
   return (
-    <div className={`app relative flex justify-start items-center min-h-screen min-w-full bg-black text-white
+    <div className={`app relative flex justify-start items-center min-h-screen w-screen bg-black text-white
     ${location.pathname.startsWith("/admin") ? "overflow-hidden" : ""}`}>
       <Routes>
         <Route path="/" element={<HomePage />} />

@@ -21,97 +21,109 @@ export default function AdminUsers() {
     fetchUsers();
   }, []);
   return (
-    <main
-      className="proma-page min-w-full light no-scrollbar transition-all"
-      // ref={container}
-    >
-      <h1 className="gradient-text mb-0">Users</h1>
-      {[
-        <>
-          <div className="proma-table no-scrollbar">
-            <table>
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>Firstname</th>
-                  <th>Lastname</th>
-                  <th>Fullname</th>
-                  <th>Email ID</th>
-                  <th>Gender</th>
-                  <th>Account Status</th>
-                  <th>Registration Date-time</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user) => (
-                  <tr key={Number(user.id)}>
-                    <td>{Number(user.id)}</td>
-                    <td>{user.first_name}</td>
-                    <td>{user.last_name}</td>
-                    <td>{`${user.first_name} ${user.last_name}`}</td>
-                    <td>{user.email}</td>
-                    <td>{user.gender}</td>
-                    <td>{user.account_status}</td>
-                    <td>{String(user.created_at)}</td>
-                  </tr>
-                ))}
-                {users.map((user) => (
-                  <tr key={Number(user.id)}>
-                    <td>{Number(user.id)}</td>
-                    <td>{user.first_name}</td>
-                    <td>{user.last_name}</td>
-                    <td>{`${user.first_name} ${user.last_name}`}</td>
-                    <td>{user.email}</td>
-                    <td>{user.gender}</td>
-                    <td>{user.account_status}</td>
-                    <td>{String(user.created_at)}</td>
-                  </tr>
-                ))}
-                {users.map((user) => (
-                  <tr key={Number(user.id)}>
-                    <td>{Number(user.id)}</td>
-                    <td>{user.first_name}</td>
-                    <td>{user.last_name}</td>
-                    <td>{`${user.first_name} ${user.last_name}`}</td>
-                    <td>{user.email}</td>
-                    <td>{user.gender}</td>
-                    <td>{user.account_status}</td>
-                    <td>{String(user.created_at)}</td>
-                  </tr>
-                ))}
-                {users.map((user) => (
-                  <tr key={Number(user.id)}>
-                    <td>{Number(user.id)}</td>
-                    <td>{user.first_name}</td>
-                    <td>{user.last_name}</td>
-                    <td>{`${user.first_name} ${user.last_name}`}</td>
-                    <td>{user.email}</td>
-                    <td>{user.gender}</td>
-                    <td>{user.account_status}</td>
-                    <td>{String(user.created_at)}</td>
-                  </tr>
-                ))}
-                {users.map((user) => (
-                  <tr key={Number(user.id)}>
-                    <td>{Number(user.id)}</td>
-                    <td>{user.first_name}</td>
-                    <td>{user.last_name}</td>
-                    <td>{`${user.first_name} ${user.last_name}`}</td>
-                    <td>{user.email}</td>
-                    <td>{user.gender}</td>
-                    <td>{user.account_status}</td>
-                    <td>{String(user.created_at)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+    <>
+      <div className="flex h-fit w-full">
+        <div className="proma-section-wrapper relative gradient-bg w-full p-6 rounded-3xl">
+          <div className="flex flex-col justify-between align-center h-fit w-full">
+            <div className="flex flex-col">
+              <h3 className="mb-0">Users</h3>
+              <p className="text-4xl text-gray-400">Users</p>
+            </div>
           </div>
-        </>,
-      ].map((section, index) => (
-        <section key={index} className="flex">
-          {section}
-        </section>
-      ))}
-    </main>
+          <div className="absolute top-0 left-0 z-10 h-full w-full tranform gradient-bg filter blur-[200px] mix-blend-plus-lighter pointer-events-none"></div>
+          <div className="absolute top-0 left-0 z-10 h-full w-full tranform gradient-bg filter blur-[200px] mix-blend-plus-lighter pointer-events-none"></div>
+        </div>
+      </div>
+      <div className="proma-table no-scrollbar">
+        <table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Firstname</th>
+              <th>Lastname</th>
+              <th>Fullname</th>
+              <th>Email ID</th>
+              <th>Gender</th>
+              <th>Account Status</th>
+              <th>Registration Date-time</th>
+              <th>Registration Date-time</th>
+              <th>Registration Date-time</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={Number(user.id)}>
+                <td>{Number(user.id)}</td>
+                <td>{user.first_name}</td>
+                <td>{user.last_name}</td>
+                <td>{`${user.first_name} ${user.last_name}`}</td>
+                <td>{user.email}</td>
+                <td>{user.gender}</td>
+                <td>{user.account_status}</td>
+                <td>{String(user.created_at)}</td>
+                <td>{String(user.created_at)}</td>
+                <td>{String(user.created_at)}</td>
+              </tr>
+            ))}
+            {users.map((user) => (
+              <tr key={Number(user.id)}>
+                <td>{Number(user.id)}</td>
+                <td>{user.first_name}</td>
+                <td>{user.last_name}</td>
+                <td>{`${user.first_name} ${user.last_name}`}</td>
+                <td>{user.email}</td>
+                <td>{user.gender}</td>
+                <td>{user.account_status}</td>
+                <td>{String(user.created_at)}</td>
+                <td>{String(user.created_at)}</td>
+                <td>{String(user.created_at)}</td>
+              </tr>
+            ))}
+            {users.map((user) => (
+              <tr key={Number(user.id)}>
+                <td>{Number(user.id)}</td>
+                <td>{user.first_name}</td>
+                <td>{user.last_name}</td>
+                <td>{`${user.first_name} ${user.last_name}`}</td>
+                <td>{user.email}</td>
+                <td>{user.gender}</td>
+                <td>{user.account_status}</td>
+                <td>{String(user.created_at)}</td>
+                <td>{String(user.created_at)}</td>
+                <td>{String(user.created_at)}</td>
+              </tr>
+            ))}
+            {users.map((user) => (
+              <tr key={Number(user.id)}>
+                <td>{Number(user.id)}</td>
+                <td>{user.first_name}</td>
+                <td>{user.last_name}</td>
+                <td>{`${user.first_name} ${user.last_name}`}</td>
+                <td>{user.email}</td>
+                <td>{user.gender}</td>
+                <td>{user.account_status}</td>
+                <td>{String(user.created_at)}</td>
+                <td>{String(user.created_at)}</td>
+                <td>{String(user.created_at)}</td>
+              </tr>
+            ))}
+            {users.map((user) => (
+              <tr key={Number(user.id)}>
+                <td>{Number(user.id)}</td>
+                <td>{user.first_name}</td>
+                <td>{user.last_name}</td>
+                <td>{`${user.first_name} ${user.last_name}`}</td>
+                <td>{user.email}</td>
+                <td>{user.gender}</td>
+                <td>{user.account_status}</td>
+                <td>{String(user.created_at)}</td>
+                <td>{String(user.created_at)}</td>
+                <td>{String(user.created_at)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 }

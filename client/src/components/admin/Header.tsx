@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 export default function Header({ onclick }: { onclick: () => void }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  
+
   // responsiveness
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth < 726);
   const checkDeviceWidth = () => {
@@ -36,7 +36,9 @@ export default function Header({ onclick }: { onclick: () => void }) {
   }, []);
 
   // active route and polling
-  const [activeRoute, setActiveRoute] = useState<string | null>(localStorage.getItem("proma-admin-last-active-page") || "");
+  const [activeRoute, setActiveRoute] = useState<string | null>(
+    localStorage.getItem("proma-admin-last-active-page") || "",
+  );
   const setRoute = (route: string) => {
     const formattedRoute = route.toLowerCase();
     localStorage.setItem("proma-admin-last-active-page", formattedRoute);
@@ -46,7 +48,7 @@ export default function Header({ onclick }: { onclick: () => void }) {
     const handleStorageChange = () => {
       const storedRoute = localStorage.getItem("proma-admin-last-active-page");
       setActiveRoute(storedRoute || "");
-    }
+    };
     window.addEventListener("storage", handleStorageChange);
     return () => window.removeEventListener("storage", handleStorageChange);
   }, [activeRoute]);
@@ -64,13 +66,7 @@ export default function Header({ onclick }: { onclick: () => void }) {
 
       {/* --- Sidebar Container --- */}
       <aside
-        className={`
-          ${isMobile ? "fixed top-0 left-0" : "relative"} h-screen z-40 transition-all duration-300 ease-in-out
-          /* Glassmorphism Logic */
-          bg-white/10 backdrop-blur-xl
-          min-w-64  rounded-r-3xl
-          ${isMobile ? (isOpen ? "w-64 translate-x-0" : "w-64 -translate-x-full") : "w-64 translate-x-0"}
-        `}
+        className={`${isMobile ? "fixed top-0 left-0" : "relative"} h-screen z-40 transition-all duration-300 ease-in-out bg-white/10 backdrop-blur-xl min-w-64 rounded-r-3xl ${isMobile ? (isOpen ? "w-64 translate-x-0" : "w-64 -translate-x-full") : "w-64 translate-x-0"}`}
       >
         {!isMobile && (
           <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex h-[calc(150%)] w-[calc(110%)] gradient-bg-top-bottom -z-10 filter blur-3xl"></div>
@@ -104,7 +100,8 @@ export default function Header({ onclick }: { onclick: () => void }) {
                 localStorage.removeItem("proma-role");
                 window.location.pathname = "/login";
               }}
-            className="relative flex flex-col justify-center items-center rounded-xl h-fit w-full px-4 py-4 bg-red-950/20 hover:bg-red-800">
+              className="relative flex flex-col justify-center items-center rounded-xl h-fit w-full px-4 py-4 bg-red-950/20 hover:bg-red-800"
+            >
               <p>Logout</p>
             </button>
           )}

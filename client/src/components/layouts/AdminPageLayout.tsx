@@ -23,12 +23,8 @@ export default function AdminPageLayout() {
     return () => window.removeEventListener("storage", updatePage);
   }, []);
   return (
-    <div className="flex bg-gradient-to-br min-h-screen w-full">
-      {/* Mana Glassmorphism Header (Sidebar) */}
-      <Header onclick={() => updatePage()} />
-
-      {/* Main Content Area */}
-      <main className="flex flex-col justify-start items-center h-screen w-full p-20">
+    <div className="flex w-full">+
+      <main className="flex flex-1 flex-col justify-start items-center gap-10 h-screen w-full p-20">
         {page}
       </main>
     </div>
