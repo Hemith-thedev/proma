@@ -23,7 +23,7 @@ export default function AdminUsers() {
   return (
     <>
       <div className="flex h-fit w-full">
-        <div className="proma-section-wrapper relative gradient-bg w-full p-6 rounded-3xl">
+        <div className="relative gradient-bg w-full p-6 rounded-3xl">
           <div className="flex flex-col justify-between align-center h-fit w-full">
             <div className="flex flex-col">
               <h3 className="mb-0">Users</h3>

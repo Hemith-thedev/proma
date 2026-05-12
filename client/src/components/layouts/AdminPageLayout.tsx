@@ -4,9 +4,10 @@ import { useLocation } from "react-router-dom"; // Hook import cheyi
 
 import AdminDashboard from "../../pages/admin/Dashboard";
 import AdminUsers from "../../pages/admin/pages/Users";
+import AdminSettings from "../../pages/admin/pages/Settings";
 
 export default function AdminPageLayout() {
-  const [page, setPage] = useState<JSX.Element>(<AdminDashboard />);
+  const [page, setPage] = useState<JSX.Element>(<></>);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const location = useLocation();
   const updatePage = async () => {
@@ -19,6 +20,9 @@ export default function AdminPageLayout() {
         }
         else if (storedRoute === "users") {
           setPage(<AdminUsers />);
+        }
+        else if (storedRoute === "settings") {
+          setPage(<AdminSettings />);
         }
         setIsLoading(false);
       }, 1000);

@@ -49,10 +49,10 @@ export default function Header({ onclick }: { onclick: () => void }) {
       <div className="fixed bottom-4 right-4 z-50 flex flex-col justify-end items-end gap-4">
         <div className={`bg-white/20 min-h-64 min-w-64 rounded-3xl ${isOpen ? "opacity-100 pointer-events-auto translate-y-0 blur-none delay-200" : "opacity-0 pointer-events-none translate-y-2 blur-lg"} transition-all duration-200`}>
           <div className="flex flex-col justify-start items-start gap-2 p-4">
-            <div>
+            <div className="h-fit w-full p-2 bg-primary-100/10 rounded-xl">
               <p>{routeName}</p>
             </div>
-            <div className="flex flex-col justify-start items-start gap-2">
+            <div className="flex flex-col justify-start items-start gap-2 px-2">
               {[
                 Data.routes.map((route, index) => (
                   <button
