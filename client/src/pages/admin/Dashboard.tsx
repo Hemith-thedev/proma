@@ -9,7 +9,7 @@ export default function AdminDashboard() {
   return (
     <>
       {role}
-      {localStorage.getItem("proma-firstName")}
+      {localStorage.getItem("proma-firstname")}
     </>
   );
 }

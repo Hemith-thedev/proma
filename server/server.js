@@ -21,9 +21,7 @@ const database = mysql.createPool({
 (async () => {
   try {
     const connection = await database.getConnection();
-
     console.log("✅ Successfully connected to the database!");
-
     connection.release();
   } catch (error) {
     console.error(
@@ -37,31 +35,25 @@ const database = mysql.createPool({
 app.post("/api/register", async (req, res) => {
   try {
     const { firstname, lastname, email, password, gender } = req.body;
-
     if (!firstname || !email || !password) {
       return res.status(400).json({
         message: "NODETAILS",
       });
     }
-
     const [existingUsers] = await database.query(
       "SELECT * FROM users WHERE email = ?",
       [email]
     );
-
     if (existingUsers.length > 0) {
       return res.status(400).json({
         message: "EXISTS",
       });
     }
-
     const salt = await bcryptjs.genSalt(10);
-
     const hashedPassword = await bcryptjs.hash(
       password,
       salt
     );
-
     const [result] = await database.query(
       `
       INSERT INTO users
@@ -83,7 +75,6 @@ app.post("/api/register", async (req, res) => {
         gender,
       ]
     );
-
     return res.status(201).json({
       message: "SUCCESS",
       userid: result.insertId,
@@ -93,7 +84,6 @@ app.post("/api/register", async (req, res) => {
       "❌ Registration Error:",
       error
     );
-
     return res.status(500).json({
       error:
         "An unexpected error occurred during registration.",
@@ -111,43 +101,35 @@ app.post("/api/login", async (req, res) => {
         message: "NODETAILS",
       });
     }
-
     const [users] = await database.query(
       "SELECT * FROM users WHERE email = ?",
       [email]
     );
-
     if (users.length === 0) {
       return res.status(400).json({
         message: "ACCOUNTNOTFOUND",
       });
     }
-
     const user = users[0];
-
     const isPasswordValid =
       await bcryptjs.compare(
         password,
         user.password
       );
-
     if (!isPasswordValid) {
       return res.status(400).json({
         message: "INCORRECTPASSWORD",
       });
     }
-
     if (user.account_status !== "Approved") {
       return res.status(403).json({
         message: "WAIT",
       });
     }
-
     const safeUser = {
       ...user,
       password: undefined,
     };
-
     return res.status(200).json({
       message: "SUCCESS",
       user: safeUser,
@@ -157,7 +139,6 @@ app.post("/api/login", async (req, res) => {
       "❌ Login Error:",
       error
     );
-
     return res.status(500).json({
       error:
         "An unexpected error occurred during login.",
@@ -169,7 +150,6 @@ app.post("/api/login", async (req, res) => {
 app.put("/api/update-status/:id", async (req, res) => {
   try {
     const userid = req.params.id;
-
     await database.query(
       `
       UPDATE users
@@ -178,7 +158,6 @@ app.put("/api/update-status/:id", async (req, res) => {
       `,
       [userid]
     );
-
     return res.status(200).json({
       message: "SUCCESS",
     });
@@ -187,7 +166,6 @@ app.put("/api/update-status/:id", async (req, res) => {
       "❌ Approve User Error:",
       error
     );
-
     return res.status(500).json({
       error:
         "An unexpected error occurred while approving the user.",
@@ -201,17 +179,36 @@ app.get("/api/get/users", async (_, res) => {
     const [users] = await database.execute(
       "SELECT * FROM users"
     );
-
     return res.status(200).json(users);
   } catch (error) {
     console.error(
       "❌ Fetch Users Error:",
       error
     );
-
     return res.status(500).json({
       error:
         "An unexpected error occurred while fetching the users.",
+    });
+  }
+});
+
+// Fetch user
+app.get("/api/get/user/:id", async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const [users] = await database.query(
+      "SELECT * FROM users WHERE id = ?",
+      [userId]
+    );
+    return res.status(200).json(users[0]);
+  } catch (error) {
+    console.error(
+      "❌ Fetch User Error:",
+      error
+    );
+    return res.status(500).json({
+      error:
+        "An unexpected error occurred while fetching the user.",
     });
   }
 });

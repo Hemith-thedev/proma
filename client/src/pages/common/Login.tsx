@@ -1,5 +1,5 @@
 import { JSX, useEffect, useState, useRef } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -10,6 +10,7 @@ import { User } from "../../data/types";
 import axios from "axios";
 
 function LoginForm(): JSX.Element {
+  const navigate = useNavigate();
   const [data, setData] = useState<User>({
     email: "",
     password: "",
@@ -94,15 +95,15 @@ function LoginForm(): JSX.Element {
               "proma-fullname",
               `${first_name} ${last_name}`,
             );
-            localStorage.setItem("proma-firstName", first_name);
-            localStorage.setItem("proma-lastName", last_name);
+            localStorage.setItem("proma-firstname", first_name);
+            localStorage.setItem("proma-last_name", last_name);
             localStorage.setItem("proma-email", email);
             localStorage.setItem("proma-role", role);
             localStorage.setItem("proma-accountStatus", account_status);
-            localStorage.setItem("proma-createdAt", created_at);
+            localStorage.setItem("proma-created_at", created_at);
             localStorage.setItem("proma-gender", gender);
             localStorage.setItem("proma-id", id);
-            window.location.pathname = "/admin/dashboard";
+            navigate("/admin");
           }
         }
         if (res.status === 500) {

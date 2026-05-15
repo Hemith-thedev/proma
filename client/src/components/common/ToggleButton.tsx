@@ -3,21 +3,22 @@ import { useState } from "react";
 export default function ToggleButton(
   {
     checked,
-    height = 6,
     onToggle
   }: {
     checked?: boolean,
-    height: number,
     onToggle: () => void
   }
 ) {
-  const [isOn, setIsOn] = useState(false);
   return (
-    <div
-      className={`relative h-${height} w-${height * 2} bg-primary-200 rounded-full`}
-      onClick={() => onToggle()}>
-      <div className="absolute gradient-bg h-full w-full"></div>
-      <div className=""></div>
-    </div>
+    <button
+      type="button"
+      className={`relative min-h-6 min-w-12 bg-white/20 rounded-full cursor-pointer`}
+      onClick={onToggle}>
+      {/* <div className="absolute gradient-bg h-full w-full opacity-30"></div> */}
+      <div className={`absolute top-0 ${checked ? "left-1/2 opacity-100" : "left-0 opacity-0"} bg-purple-700 h-full w-1/2 rounded-full mix-blend-plus-lighter brightness-200 blur-3xl pointer-events-none`}></div>
+      <div className={`absolute top-0 ${checked ? "left-1/2 opacity-100" : "left-0 opacity-0"} bg-purple-700 h-full w-1/2 rounded-full mix-blend-plus-lighter brightness-200 blur-2xl pointer-events-none`}></div>
+      <div className={`absolute top-0 ${checked ? "left-1/2 opacity-100" : "left-0 opacity-0"} bg-purple-700 h-full w-1/2 rounded-full mix-blend-plus-lighter brightness-200 blur-xl pointer-events-none`}></div>
+      <div className={`absolute top-0 ${checked ? "left-1/2" : "left-0"} gradient-bg h-full w-1/2 rounded-full`}></div>
+    </button>
   )
 }

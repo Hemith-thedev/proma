@@ -33,10 +33,17 @@ export default function AdminPageLayout() {
     window.addEventListener("storage", updatePage);
     return () => window.removeEventListener("storage", updatePage);
   }, []);
+  const [isHeaderOpen, setIsHeaderOpen] = useState<boolean>(false);
+  const toggleHeader = () => {
+    setIsHeaderOpen(prev => !prev);
+  }
   return (
     <div className="flex w-full">
-      <Header onclick={() => updatePage()} />
-      <main className="flex flex-1 flex-col justify-start items-center gap-10 h-screen w-full p-20">
+      <Header isHeaderOpen={isHeaderOpen} onclick={() => {
+        updatePage();
+        toggleHeader();
+      }} />
+      <main className="flex flex-1 flex-col justify-start items-center gap-10 h-screen w-full p-20 overflow-y-auto no-scrollbar">
         {page}
         <div className={`fixed top-0 left-0 h-full w-full z-20 bg-black ${isLoading ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"} transition-opacity duration-500`} />
       </main>

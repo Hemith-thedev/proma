@@ -234,6 +234,10 @@
       }
     }
   }
+
+  .proma-primary-button {
+    @apply p-2;
+  }
 }
 
 * {

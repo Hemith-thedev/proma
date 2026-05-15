@@ -15,13 +15,13 @@ const UseStar = () => {
 
 function RegistrationForm(): JSX.Element {
   const [data, setData] = useState<User>({
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
     gender: "",
     role: "user",
-    accountStatus: "Pending",
+    account_status: "Pending",
   });
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -35,7 +35,7 @@ function RegistrationForm(): JSX.Element {
   };
   const Validate = (): Object => {
     const newErrors = {
-      firstName: "",
+      first_name: "",
       gender: "",
       email: "",
       password: "",
@@ -43,11 +43,11 @@ function RegistrationForm(): JSX.Element {
     };
     const passwordLength = data.password.length;
     // showing errors in short and funny ways, because why not? Let's make validation fun!
-    if (!data.firstName?.trim()) {
-      newErrors.firstName =
+    if (!data.first_name?.trim()) {
+      newErrors.first_name =
         "First name is required. We need to know what to call you!";
-    } else if (!/^[A-Za-z]+$/.test(data.firstName?.trim())) {
-      newErrors.firstName = "Only letters, please!";
+    } else if (!/^[A-Za-z]+$/.test(data.first_name?.trim())) {
+      newErrors.first_name = "Only letters, please!";
     }
     if (!data.gender?.trim()) {
       newErrors.gender =
@@ -82,8 +82,8 @@ function RegistrationForm(): JSX.Element {
       const validationErrors = Validate();
       if (Object.values(validationErrors).every((err) => err === "")) {
         const FinalData: { [key: string]: string } = {
-          firstname: data.firstName || "",
-          lastname: data.lastName || "",
+          firstname: data.first_name || "",
+          lastname: data.last_name || "",
           email: data.email,
           password: data.password,
           gender: data.gender || "",
@@ -100,13 +100,13 @@ function RegistrationForm(): JSX.Element {
         if (res.ok) {
           setErrors({});
           setData({
-            firstName: "",
-            lastName: "",
+            first_name: "",
+            last_name: "",
             email: "",
             password: "",
             gender: "",
             role: "user",
-            accountStatus: "Pending",
+            account_status: "Pending",
           });
           setConfirmPassword("");
           console.log("Your account has been created successfully!");
@@ -135,22 +135,22 @@ function RegistrationForm(): JSX.Element {
             </span>
             <input
               type="text"
-              name="firstName"
+              name="first_name"
               className="proma-input"
               placeholder="Andrew"
-              value={data.firstName}
+              value={data.first_name}
               onChange={handleChange}
             />
-            {errors.firstName && <ErrorMessage message={errors.firstName} />}
+            {errors.first_name && <ErrorMessage message={errors.first_name} />}
           </div>
           <div className="proma-input-field">
             <span>Firstname</span>
             <input
               type="text"
-              name="lastName"
+              name="last_name"
               className="proma-input"
               placeholder="Tate"
-              value={data.lastName}
+              value={data.last_name}
               onChange={handleChange}
             />
           </div>

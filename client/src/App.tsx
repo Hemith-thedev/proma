@@ -29,14 +29,22 @@ function App() {
   };
   useEffect(() => {
     const storedRole = localStorage.getItem("proma-role");
-    if (storedRole === "admin") {
-      if (!location.pathname.startsWith("/admin")) {
-        navigate("/admin");
-      } else {
-        // if (location.pathname.startsWith("/admin")) {
-        //   navigate("/login");
-        // }
+    if (storedRole) {
+      if (storedRole === "admin") {
+        if (!location.pathname.startsWith("/admin")) {
+          navigate("/admin");
+        } else {
+          navigate("/login");
+        }
+      } else if (storedRole === "teammate") {
+        if (!location.pathname.startsWith("/teammate")) {
+          navigate("/teammate");
+        } else {
+          navigate("/login");
+        }
       }
+    } else {
+      return;
     }
     const handleStorageChange = () => {
       setRole(storedRole || "");
@@ -44,7 +52,7 @@ function App() {
     window.addEventListener("storage", handleStorageChange);
     setActiveRole();
     return () => window.removeEventListener("storage", handleStorageChange);
-  });
+  }, [location.pathname]);
   useEffect(() => {
     const document = Document as any;
     if (document.startViewTransition) {

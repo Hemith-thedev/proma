@@ -48,8 +48,13 @@ export default function AdminUsers() {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={Number(user.id)}>
+            {users.map((user) => {
+              const createdDateTime = user.created_at ? new Date(user.created_at) : null;
+              const date: string | null = createdDateTime ? `${createdDateTime.getDate()}-${createdDateTime.getMonth() + 1}-${createdDateTime.getFullYear()}` : null;
+              const isAfterNoon: boolean | null = createdDateTime ? ((createdDateTime.getHours() < 12) ? false : true) : null;
+              const time: string | null = createdDateTime ? `${(!isAfterNoon) ? createdDateTime.getHours() : createdDateTime.getHours() - 12}:${createdDateTime.getMinutes()}:${createdDateTime.getSeconds()}` : null;
+              const meridian: string | null = (isAfterNoon && createdDateTime) ? ((isAfterNoon) ? "PM" : "AM") : null;
+              return <tr key={Number(user.id)}>
                 <td>{Number(user.id)}</td>
                 <td>{user.first_name}</td>
                 <td>{user.last_name}</td>
@@ -57,9 +62,9 @@ export default function AdminUsers() {
                 <td>{user.email}</td>
                 <td>{user.gender}</td>
                 <td>{user.account_status}</td>
-                <td>{String(user.created_at)}</td>
+                <td>{`${date}, ${time} ${meridian}`}</td>
               </tr>
-            ))}
+            })}
           </tbody>
         </table>
       </div>
