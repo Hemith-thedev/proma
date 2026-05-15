@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ToggleButton from "../../../components/common/ToggleButton";
 import { Settings, User } from "../../../data/types";
 import axios from "axios";
+import Dropdown from "../../../components/common/Dropdown";
 
 export default function AdminSettings() {
   const [settings, setSettings] = useState<Settings["admin"]>({
@@ -65,7 +66,7 @@ export default function AdminSettings() {
             <div className="flex justify-between items-center h-fit w-full">
               <p>Gender - <span className="text-gray-500">{user.gender}</span></p>
             </div>
-            <button className="proma-primary-button red-button">Edit</button>
+            <button className="absolute top-4 right-4 proma-primary-button green-button">Edit</button>
           </div>
         </div>
         {[
