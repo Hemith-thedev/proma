@@ -1,0 +1,72 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Build and coverage output
+dist/
+build/
+coverage/
+.vite/
+.cache/
+.tmp/
+
+# Runtime logs and process files
+*.log
+logs/
+pids/
+*.pid
+*.pid.lock
+
+# Local MongoDB data
+mongodb-data/
+data/db/
+
+# Uploads and generated local files
+uploads/
+tmp/
+temp/
+
+# TypeScript and tooling caches
+*.tsbuildinfo
+.eslintcache
+.stylelintcache
+
+# Test output
+playwright-report/
+test-results/
+.nyc_output/
+
+# Editor settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Private project planning documents
+procedure.md
+requirement.md
+steps.md
+home.md
+about.md
+contact.md
+auth.md
+features.md
+**/procedure.md
+**/requirement.md
+**/steps.md
+**/home.md
+**/about.md
+**/contact.md
+**/auth.md
+**/features.md

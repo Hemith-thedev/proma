@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+* {
+  @apply m-0 box-border p-0 font-["Nunito"];
+}
